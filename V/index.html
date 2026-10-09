@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEVEL_UP — Inicio</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body data-page="inicio">
+  <header id="navbar"></header>
+
+  <main id="app">
+    <section class="hero">
+      <p class="hero-kicker">Bienvenido a</p>
+      <h1 class="hero-titulo">LEVEL_UP</h1>
+      <p class="hero-texto">Tu tienda en linea de videojuegos. Descubre los titulos mas populares para PC y consolas y sube de nivel.</p>
+      <a class="boton boton-primario" href="catalogo.html">Ver catalogo</a>
+    </section>
+
+    <section class="seccion">
+      <div class="seccion-cabecera">
+        <h2>Destacados</h2>
+        <a class="enlace" href="catalogo.html">Ver todos</a>
+      </div>
+
+      <div class="grid-juegos" data-bind="each: destacados">
+        <article class="tarjeta">
+          <img class="tarjeta-imagen" data-bind="src: imagen, alt: titulo, respaldo: imagenRespaldo">
+          <div class="tarjeta-cuerpo">
+            <h3 class="tarjeta-titulo" data-bind="text: titulo"></h3>
+            <p class="tarjeta-meta" data-bind="text: plataforma"></p>
+            <p class="tarjeta-precio" data-bind="text: precioTexto"></p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>(c) 2026 LEVEL_UP — Proyecto academico de tienda de videojuegos.</p>
+  </footer>
+
+  <script src="../M/modelo.js"></script>
+  <script src="../MV/motor.js"></script>
+  <script src="../MV/navbar.js"></script>
+  <script src="../MV/inicio.js"></script>
+  <script src="../MV/app.js"></script>
+</body>
+</html>

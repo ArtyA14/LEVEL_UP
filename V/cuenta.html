@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEVEL_UP — Mi cuenta</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body data-page="cuenta">
+  <header id="navbar"></header>
+
+  <main id="app" class="centrado">
+    <section class="tarjeta-perfil">
+      <div class="avatar" data-bind="text: inicial"></div>
+      <h1 class="titulo-form">Hola, <span data-bind="text: nombre"></span></h1>
+      <p class="texto-form" data-bind="text: email"></p>
+      <p class="texto-form">Juegos disponibles en la tienda: <strong data-bind="text: totalJuegos"></strong></p>
+
+      <div class="acciones">
+        <a class="boton boton-primario" href="catalogo.html">Ir al catalogo</a>
+        <button class="boton boton-suave" data-bind="click: cerrarSesion">Cerrar sesion</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>(c) 2026 LEVEL_UP — Proyecto academico de tienda de videojuegos.</p>
+  </footer>
+
+  <script src="../M/modelo.js"></script>
+  <script src="../MV/motor.js"></script>
+  <script src="../MV/navbar.js"></script>
+  <script src="../MV/cuenta.js"></script>
+  <script src="../MV/app.js"></script>
+</body>
+</html>

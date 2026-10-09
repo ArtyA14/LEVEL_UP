@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEVEL_UP — Crear cuenta</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body data-page="registro">
+  <header id="navbar"></header>
+
+  <main id="app" class="centrado">
+    <form class="tarjeta-form" data-bind="submit: enviar">
+      <h1 class="titulo-form" data-bind="text: titulo"></h1>
+      <p class="texto-form">Crea tu cuenta para comprar y gestionar tu perfil.</p>
+
+      <label class="campo-grupo" data-bind="show: esRegistro">
+        <span>Nombre</span>
+        <input class="campo" type="text" placeholder="Tu nombre" data-bind="value: nombre">
+      </label>
+
+      <label class="campo-grupo">
+        <span>Correo</span>
+        <input class="campo" type="email" placeholder="tu@correo.com" data-bind="value: email">
+      </label>
+
+      <label class="campo-grupo">
+        <span>Contrasena</span>
+        <input class="campo" type="password" placeholder="Minimo 6 caracteres" data-bind="value: password">
+      </label>
+
+      <p class="error" data-bind="show: hayError, text: error"></p>
+
+      <button class="boton boton-primario boton-ancho" type="submit" data-bind="text: textoBoton"></button>
+
+      <p class="texto-form pie-form" data-bind="show: esRegistro">Ya tienes cuenta? <a href="login.html">Inicia sesion</a></p>
+      <p class="texto-form pie-form" data-bind="show: sinRegistro">No tienes cuenta? <a href="registro.html">Registrate</a></p>
+    </form>
+  </main>
+
+  <footer class="pie">
+    <p>(c) 2026 LEVEL_UP — Proyecto academico de tienda de videojuegos.</p>
+  </footer>
+
+  <script src="../M/modelo.js"></script>
+  <script src="../MV/motor.js"></script>
+  <script src="../MV/navbar.js"></script>
+  <script src="../MV/auth.js"></script>
+  <script src="../MV/app.js"></script>
+</body>
+</html>

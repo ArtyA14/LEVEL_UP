@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEVEL_UP — Catalogo</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body data-page="catalogo">
+  <header id="navbar"></header>
+
+  <main id="app">
+    <section class="seccion">
+      <h1 class="titulo-pagina">Catalogo</h1>
+      <p class="subtitulo-pagina" data-bind="text: resumen"></p>
+
+      <div class="filtros">
+        <input class="campo" type="search" placeholder="Buscar por nombre..." data-bind="value: query">
+        <select class="campo" data-bind="each: plataformas, value: plataforma">
+          <option data-bind="text: $item, value: $item"></option>
+        </select>
+        <select class="campo" data-bind="each: generos, value: genero">
+          <option data-bind="text: $item, value: $item"></option>
+        </select>
+        <button class="boton boton-suave" data-bind="click: limpiar">Limpiar</button>
+      </div>
+
+      <p class="aviso" data-bind="show: hayMensaje, text: mensaje"></p>
+
+      <div class="grid-juegos" data-bind="each: resultados">
+        <article class="tarjeta">
+          <img class="tarjeta-imagen" data-bind="src: imagen, alt: titulo, respaldo: imagenRespaldo">
+          <div class="tarjeta-cuerpo">
+            <h3 class="tarjeta-titulo" data-bind="text: titulo"></h3>
+            <p class="tarjeta-meta">
+              <span data-bind="text: plataforma"></span> &middot;
+              <span data-bind="text: genero"></span>
+            </p>
+            <p class="tarjeta-descripcion" data-bind="text: descripcion"></p>
+            <div class="tarjeta-pie">
+              <span class="tarjeta-precio" data-bind="text: precioTexto"></span>
+              <button class="boton boton-primario" data-bind="click: comprar">Comprar</button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <p class="vacio" data-bind="show: sinResultados">No se encontraron juegos con esos filtros.</p>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>(c) 2026 LEVEL_UP — Proyecto academico de tienda de videojuegos.</p>
+  </footer>
+
+  <script src="../M/modelo.js"></script>
+  <script src="../MV/motor.js"></script>
+  <script src="../MV/navbar.js"></script>
+  <script src="../MV/catalogo.js"></script>
+  <script src="../MV/app.js"></script>
+</body>
+</html>

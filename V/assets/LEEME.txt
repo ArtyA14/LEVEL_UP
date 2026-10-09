@@ -1,0 +1,9 @@
+Carpeta assets — imagenes locales de LEVEL_UP
+
+Aqui puedes guardar el logo, portadas de juegos u otras imagenes.
+
+Para usar una imagen local en M/modelo.js, escribe la ruta asi:
+  imagen: "../assets/mi-portada.jpg"
+
+Recuerda que los archivos se abren desde la carpeta V, por eso la ruta
+empieza con "../" para subir un nivel y entrar a assets.
