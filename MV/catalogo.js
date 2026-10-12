@@ -6,7 +6,7 @@ class CatalogoViewModel {
     this.todos = GameRepository.obtenerTodos();
 
     this.query = observable("");
-    this.plataforma = observable("Todas");
+    this.plataforma = observable("Todas"); 
     this.genero = observable("Todos");
     this.mensaje = observable("");
 

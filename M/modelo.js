@@ -31,12 +31,12 @@
   const JUEGOS_SEMILLA = [
     {
       id: 1,
-      titulo: "Elden Ring",
-      plataforma: "PC",
+      titulo: "The Witcher 3: Wild hunt - Remastered",
+      plataforma: "PC, Xbox Series X/S, Playstation 5 y Nintendo Switch 2",
       genero: "RPG",
-      precio: 1399.00,
-      imagen: portada("elden-ring.svg"),
-      descripcion: "Rol de mundo abierto con combates exigentes y un mundo enorme por explorar."
+      precio: 999.00,
+      imagen: portada("the-witcher-3.svg"),
+      descripcion: "Revive la extrordinaira aventura de Gerald de rivia en el nuevo remaster."
     },
     {
       id: 2,
@@ -85,17 +85,17 @@
     },
     {
       id: 7,
-      titulo: "God of War Ragnarok",
-      plataforma: "PlayStation 5",
+      titulo: "Helldivers 2",
+      plataforma: "PC, Xbox Series X/S y Playstation 5",
       genero: "Accion",
-      precio: 1399.00,
-      imagen: portada("god-of-war-ragnarok.svg"),
-      descripcion: "Aventura de accion mitologica con combates intensos y gran historia."
+      precio: 799.00,
+      imagen: portada("helldivers-2.svg"),
+      descripcion: "Aventura de accion epica defendiendo la Supertierra."
     },
     {
       id: 8,
       titulo: "Marvel's Spider-Man 2",
-      plataforma: "PlayStation 5",
+      plataforma: "PC",
       genero: "Accion",
       precio: 1399.00,
       imagen: portada("spider-man-2.svg"),
@@ -103,26 +103,26 @@
     },
     {
       id: 9,
-      titulo: "Forza Horizon 5",
-      plataforma: "Xbox Series X",
+      titulo: "Forza Horizon 6",
+      plataforma: "PC, Xbox Series X/S y Playstation 5",
       genero: "Carreras",
       precio: 999.00,
-      imagen: portada("forza-horizon-5.svg"),
-      descripcion: "Carreras de mundo abierto con cientos de autos y eventos."
+      imagen: portada("forza-horizon-8.svg"),
+      descripcion: "Carreras de mundo abierto en japon con cientos de autos y eventos."
     },
     {
       id: 10,
-      titulo: "Halo Infinite",
-      plataforma: "Xbox Series X",
+      titulo: "Halo Campeing Evolved",
+      plataforma: "PC, Xbox Series X/S y Playstation 5",
       genero: "Shooter",
       precio: 999.00,
-      imagen: portada("halo-infinite.svg"),
-      descripcion: "Shooter en primera persona con campana y multijugador."
+      imagen: portada("halo-campeing-evolved.svg"),
+      descripcion: "Regresa al anillo en donde todo comenzo hace un cuarto de siglo."
     },
     {
       id: 11,
       titulo: "Minecraft",
-      plataforma: "PC",
+      plataforma: "PC, Xbox Series X/S y Playstation 5",
       genero: "Sandbox",
       precio: 499.00,
       imagen: portada("minecraft.svg"),
@@ -130,13 +130,23 @@
     },
     {
       id: 12,
-      titulo: "EA Sports FC 24",
-      plataforma: "PlayStation 5",
-      genero: "Deportes",
-      precio: 1399.00,
-      imagen: portada("ea-sports-fc-24.svg"),
-      descripcion: "La experiencia de futbol con clubes, ligas y modos para todos."
+      titulo: "Warhammer 40000 Space Marine 2",
+      plataforma: "PC, Xbox Series X/S y Playstation 5",
+      genero: "Shooter",
+      precio: 899.00,
+      imagen: portada("space-marine-2.svg"),
+      descripcion: "En el milenio 40,000 solamente existe la guerra."
+    },
+    {
+      id: 13,
+      titulo: "Ride 6",
+      plataforma: "PC, Xbox Series X/S y Playstation 5",
+      genero: "Simulacion",
+      precio: 1199.00,
+      imagen: portada("ride-6.svg"),
+      descripcion: "Monta una infinidad de motocicliedas en asfalto o tierra."
     }
+
   ];
 
   /* Agrega a cada juego su precio ya formateado en pesos mexicanos
