@@ -35,70 +35,70 @@
       plataforma: "PC, Xbox Series X/S, Playstation 5 y Nintendo Switch 2",
       genero: "RPG",
       precio: 999.00,
-      imagen: portada("the-witcher-3.svg"),
+      imagen: "assets/the-witcher-3.png",
       descripcion: "Revive la extrordinaira aventura de Gerald de rivia en el nuevo remaster."
     },
     {
       id: 2,
-      titulo: "The Legend of Zelda: Tears of the Kingdom",
-      plataforma: "Nintendo Switch",
-      genero: "Aventura",
-      precio: 1399.00,
-      imagen: portada("zelda-tears-of-the-kingdom.svg"),
-      descripcion: "Aventura de exploracion con construccion y libertad total para resolver retos."
+      titulo: "Battlefield 6",
+      plataforma: "PC, Xbox Series X/S y Playstation 5",
+      genero: "Shooter",
+      precio: 1099.00,
+      imagen: "assets/battlefield-6.png",
+      descripcion: "Combate en la guerra moderna con vehiculos, armas y mapas enormes."
     },
     {
       id: 3,
       titulo: "Cyberpunk 2077",
-      plataforma: "PC",
+      plataforma: "PC, Xbox Series X/S, Playstation 5 y Nintendo Switch 2",
       genero: "Accion",
       precio: 899.00,
-      imagen: portada("cyberpunk-2077.svg"),
+      imagen: "assets/cyberpunk-2077.png",
       descripcion: "Rol de accion en una ciudad futurista llena de misiones e historias."
     },
     {
       id: 4,
-      titulo: "Baldur's Gate 3",
-      plataforma: "PC",
-      genero: "RPG",
+      titulo: "Starfox",
+      plataforma: "Nintendo Switch 2",
+      genero: "Accion",
       precio: 1399.00,
-      imagen: portada("baldurs-gate-3.svg"),
-      descripcion: "Rol por turnos basado en decisiones que cambian toda la historia."
+      imagen: "assets/star-fox.png",
+      descripcion: "Aventura espacial con vehiculos y combates en el espacio y planetas."
     },
     {
       id: 5,
       titulo: "Hollow Knight",
-      plataforma: "Nintendo Switch",
+      plataforma: "PC, Xbox Series X/S, Playstation 5 y Nintendo Switch 2",
       genero: "Aventura",
       precio: 299.00,
-      imagen: portada("hollow-knight.svg"),
+      imagen: "assets/hollow-knight.png",
       descripcion: "Metroidvania dibujado a mano con exploracion y jefes memorables."
     },
     {
       id: 6,
-      titulo: "Stardew Valley",
-      plataforma: "PC",
+      titulo: "Assetto Corsa Competizione",
+      plataforma: "PC, Xbox Series X/S y Playstation 5",
       genero: "Simulacion",
-      precio: 299.00,
-      imagen: portada("stardew-valley.svg"),
-      descripcion: "Administra tu granja, haz amigos y descubre secretos del pueblo."
+      precio: 1199.00,
+      imagen: "assets/asseto-corsa-competizione.png",
+      descripcion: "Compite con autos y circuitos reales con un realismo extremo."
     },
     {
       id: 7,
       titulo: "Helldivers 2",
       plataforma: "PC, Xbox Series X/S y Playstation 5",
-      genero: "Accion",
+      genero: "Shooter",
       precio: 799.00,
-      imagen: portada("helldivers-2.svg"),
+      imagen: "assets/helldivers-2.jpg",
       descripcion: "Aventura de accion epica defendiendo la Supertierra."
     },
     {
       id: 8,
       titulo: "Marvel's Spider-Man 2",
-      plataforma: "PC",
+      plataforma: "PC y Playstation 5",
       genero: "Accion",
       precio: 1399.00,
-      imagen: portada("spider-man-2.svg"),
+      imagen: "assets/spider-man-2.png",
       descripcion: "Balanceate por la ciudad y vive una aventura de superheroes."
     },
     {
@@ -107,7 +107,7 @@
       plataforma: "PC, Xbox Series X/S y Playstation 5",
       genero: "Carreras",
       precio: 999.00,
-      imagen: portada("forza-horizon-8.svg"),
+      imagen: "assets/forza-horizon-6.png",
       descripcion: "Carreras de mundo abierto en japon con cientos de autos y eventos."
     },
     {
@@ -116,16 +116,16 @@
       plataforma: "PC, Xbox Series X/S y Playstation 5",
       genero: "Shooter",
       precio: 999.00,
-      imagen: portada("halo-campeing-evolved.svg"),
+      imagen: "assets/halo-campeing-evolved.png",
       descripcion: "Regresa al anillo en donde todo comenzo hace un cuarto de siglo."
     },
     {
       id: 11,
       titulo: "Minecraft",
-      plataforma: "PC, Xbox Series X/S y Playstation 5",
+      plataforma: "PC, Xbox Series X/S, Playstation 5 y Nintendo Switch 2",
       genero: "Sandbox",
-      precio: 499.00,
-      imagen: portada("minecraft.svg"),
+      precio: 999.00,
+      imagen: "assets/minecraft.jpg",
       descripcion: "Construye, explora y sobrevive en un mundo hecho de bloques."
     },
     {
@@ -134,7 +134,7 @@
       plataforma: "PC, Xbox Series X/S y Playstation 5",
       genero: "Shooter",
       precio: 899.00,
-      imagen: portada("space-marine-2.svg"),
+      imagen: "assets/space-marine-2.png",
       descripcion: "En el milenio 40,000 solamente existe la guerra."
     },
     {
@@ -143,7 +143,7 @@
       plataforma: "PC, Xbox Series X/S y Playstation 5",
       genero: "Simulacion",
       precio: 1199.00,
-      imagen: portada("ride-6.svg"),
+      imagen: "assets/ride-6.jpg",
       descripcion: "Monta una infinidad de motocicliedas en asfalto o tierra."
     }
 
