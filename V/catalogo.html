@@ -10,35 +10,107 @@
   <header id="navbar"></header>
 
   <main id="app">
-    <section class="seccion">
-      <h1 class="titulo-pagina">Catalogo</h1>
-      <p class="subtitulo-pagina" data-bind="text: resumen"></p>
+    <header class="catalogo-encabezado">
+      <div>
+        <h1 class="titulo-pagina">Catálogo</h1>
+        <p class="subtitulo-pagina">Encuentra tu próxima obsesión y aprovecha las ofertas de la semana.</p>
+      </div>
+      <p class="catalogo-encabezado__nota"><span class="punto-oferta" aria-hidden="true"></span>Ofertas activas</p>
+    </header>
 
-      <div class="filtros">
-        <input class="campo" type="search" placeholder="Buscar por nombre..." data-bind="value: query">
-        <select class="campo" data-bind="each: plataformas, value: plataforma">
-          <option data-bind="text: $item, value: $item"></option>
-        </select>
-        <select class="campo" data-bind="each: generos, value: genero">
-          <option data-bind="text: $item, value: $item"></option>
-        </select>
-        <button class="boton boton-suave" data-bind="click: limpiar">Limpiar</button>
+    <section class="hero-destacado" data-bind="show: hayDestacado" aria-labelledby="destacado-titulo">
+      <div class="hero-destacado__fondo" aria-hidden="true">
+        <img data-bind="src: destacado.imagen, respaldo: destacado.imagenRespaldo" alt="">
+      </div>
+
+      <div class="hero-destacado__texto">
+        <p class="hero-destacado__sello">Oferta destacada</p>
+        <h2 class="hero-destacado__titulo" id="destacado-titulo" data-bind="text: destacado.titulo"></h2>
+        <p class="hero-destacado__descripcion" data-bind="text: destacado.descripcion"></p>
+
+        <div class="hero-destacado__etiquetas">
+          <span data-bind="text: destacado.genero"></span>
+          <span data-bind="text: destacado.plataformaCorta"></span>
+        </div>
+
+        <div class="hero-destacado__compra">
+          <div class="hero-precio">
+            <s class="hero-precio__antes" data-bind="show: destacado.tieneDescuento, text: destacado.precioOriginalTexto"></s>
+            <span class="hero-precio__ahora" data-bind="text: destacado.precioTexto"></span>
+          </div>
+          <span class="descuento-grande" data-bind="show: destacado.tieneDescuento, text: destacado.descuentoTexto"></span>
+        </div>
+
+        <div class="hero-destacado__acciones">
+          <button class="boton boton-primario boton-grande" data-bind="click: comprarDestacado">Comprar oferta</button>
+          <a class="boton boton-fantasma boton-grande" href="#catalogo">Ver todo el catálogo</a>
+        </div>
+      </div>
+
+      <div class="hero-destacado__poster">
+        <img data-bind="src: destacado.imagen, alt: destacado.titulo, respaldo: destacado.imagenRespaldo">
+        <span class="poster-descuento" data-bind="show: destacado.tieneDescuento, text: destacado.descuentoTexto"></span>
+      </div>
+    </section>
+
+    <section class="catalogo" id="catalogo" aria-labelledby="catalogo-titulo">
+      <div class="catalogo-cabecera">
+        <div>
+          <h2 id="catalogo-titulo">Explorar juegos</h2>
+          <p data-bind="text: resumen"></p>
+        </div>
+      </div>
+
+      <div class="panel-filtros">
+        <div class="buscador">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"></circle>
+            <path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+          </svg>
+          <input class="campo buscador-campo" type="search" placeholder="Buscar por nombre..." data-bind="value: query" aria-label="Buscar juegos por nombre">
+        </div>
+
+        <div class="filtros">
+          <label class="filtro-grupo">
+            <span class="filtro-etiqueta">Plataforma</span>
+            <select class="campo" data-bind="each: plataformas, value: plataforma" aria-label="Filtrar por plataforma">
+              <option data-bind="text: $item, value: $item"></option>
+            </select>
+          </label>
+
+          <label class="filtro-grupo">
+            <span class="filtro-etiqueta">Género</span>
+            <select class="campo" data-bind="each: generos, value: genero" aria-label="Filtrar por género">
+              <option data-bind="text: $item, value: $item"></option>
+            </select>
+          </label>
+
+          <button class="boton boton-suave boton-limpiar" data-bind="click: limpiar">Limpiar</button>
+        </div>
+
+        <div class="filtros-rapidos" data-bind="each: chipsGenero" role="group" aria-label="Filtros rápidos por género">
+          <button class="filtro-chip" type="button" data-bind="text: nombre, class: clase, click: elegirGenero"></button>
+        </div>
       </div>
 
       <p class="aviso" data-bind="show: hayMensaje, text: mensaje"></p>
 
       <div class="grid-juegos" data-bind="each: resultados">
         <article class="tarjeta">
-          <img class="tarjeta-imagen" data-bind="src: imagen, alt: titulo, respaldo: imagenRespaldo">
+          <div class="tarjeta-media">
+            <img class="tarjeta-imagen" data-bind="src: imagen, alt: titulo, respaldo: imagenRespaldo">
+            <span class="tarjeta-descuento" data-bind="show: tieneDescuento, text: descuentoTexto"></span>
+            <span class="tarjeta-genero" data-bind="text: genero"></span>
+          </div>
           <div class="tarjeta-cuerpo">
+            <p class="tarjeta-plataforma" data-bind="text: plataformaCorta"></p>
             <h3 class="tarjeta-titulo" data-bind="text: titulo"></h3>
-            <p class="tarjeta-meta">
-              <span data-bind="text: plataforma"></span> &middot;
-              <span data-bind="text: genero"></span>
-            </p>
             <p class="tarjeta-descripcion" data-bind="text: descripcion"></p>
             <div class="tarjeta-pie">
-              <span class="tarjeta-precio" data-bind="text: precioTexto"></span>
+              <div class="tarjeta-precios">
+                <s class="tarjeta-precio-antes" data-bind="show: tieneDescuento, text: precioOriginalTexto"></s>
+                <span class="tarjeta-precio" data-bind="text: precioTexto"></span>
+              </div>
               <button class="boton boton-primario" data-bind="click: comprar">Comprar</button>
             </div>
           </div>
@@ -50,7 +122,7 @@
   </main>
 
   <footer class="pie">
-    <p>(c) 2026 LEVEL_UP — Proyecto academico de tienda de videojuegos.</p>
+    <p>© 2026 LEVEL_UP — Proyecto académico de tienda de videojuegos.</p>
   </footer>
 
   <script src="../M/modelo.js"></script>

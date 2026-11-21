@@ -35,6 +35,7 @@
       plataforma: "PC, Xbox Series X/S, Playstation 5 y Nintendo Switch 2",
       genero: "RPG",
       precio: 999.00,
+      descuento: 50,
       imagen: "assets/the-witcher-3.png",
       descripcion: "Revive la extrordinaira aventura de Gerald de rivia en el nuevo remaster."
     },
@@ -44,6 +45,7 @@
       plataforma: "PC, Xbox Series X/S y Playstation 5",
       genero: "Shooter",
       precio: 1099.00,
+      descuento: 20,
       imagen: "assets/battlefield-6.png",
       descripcion: "Combate en la guerra moderna con vehiculos, armas y mapas enormes."
     },
@@ -53,6 +55,7 @@
       plataforma: "PC, Xbox Series X/S, Playstation 5 y Nintendo Switch 2",
       genero: "Accion",
       precio: 899.00,
+      descuento: 35,
       imagen: "assets/cyberpunk-2077.png",
       descripcion: "Rol de accion en una ciudad futurista llena de misiones e historias."
     },
@@ -71,6 +74,7 @@
       plataforma: "PC, Xbox Series X/S, Playstation 5 y Nintendo Switch 2",
       genero: "Aventura",
       precio: 299.00,
+      descuento: 40,
       imagen: "assets/hollow-knight.png",
       descripcion: "Metroidvania dibujado a mano con exploracion y jefes memorables."
     },
@@ -89,6 +93,7 @@
       plataforma: "PC, Xbox Series X/S y Playstation 5",
       genero: "Shooter",
       precio: 799.00,
+      descuento: 25,
       imagen: "assets/helldivers-2.jpg",
       descripcion: "Aventura de accion epica defendiendo la Supertierra."
     },
@@ -98,6 +103,7 @@
       plataforma: "PC y Playstation 5",
       genero: "Accion",
       precio: 1399.00,
+      descuento: 15,
       imagen: "assets/spider-man-2.png",
       descripcion: "Balanceate por la ciudad y vive una aventura de superheroes."
     },
@@ -107,6 +113,7 @@
       plataforma: "PC, Xbox Series X/S y Playstation 5",
       genero: "Carreras",
       precio: 999.00,
+      descuento: 20,
       imagen: "assets/forza-horizon-6.png",
       descripcion: "Carreras de mundo abierto en japon con cientos de autos y eventos."
     },
@@ -116,6 +123,7 @@
       plataforma: "PC, Xbox Series X/S y Playstation 5",
       genero: "Shooter",
       precio: 999.00,
+      descuento: 30,
       imagen: "assets/halo-campeing-evolved.png",
       descripcion: "Regresa al anillo en donde todo comenzo hace un cuarto de siglo."
     },
@@ -134,6 +142,7 @@
       plataforma: "PC, Xbox Series X/S y Playstation 5",
       genero: "Shooter",
       precio: 899.00,
+      descuento: 35,
       imagen: "assets/space-marine-2.png",
       descripcion: "En el milenio 40,000 solamente existe la guerra."
     },
@@ -143,20 +152,34 @@
       plataforma: "PC, Xbox Series X/S y Playstation 5",
       genero: "Simulacion",
       precio: 1199.00,
+      descuento: 25,
       imagen: "assets/ride-6.jpg",
       descripcion: "Monta una infinidad de motocicliedas en asfalto o tierra."
     }
 
   ];
 
-  /* Agrega a cada juego su precio ya formateado en pesos mexicanos
-     y una imagen de respaldo, para mostrarlos en el HTML. */
+  /* Agrega a cada juego su precio ya formateado en pesos mexicanos,
+     su descuento (si tiene) y una imagen de respaldo para el HTML. */
+  function formatearPrecio(valor) {
+    return "$" + Number(valor).toLocaleString("es-MX", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }) + " MXN";
+  }
+
   function normalizar(juego) {
+    const descuento = Math.max(0, Math.min(90, Number(juego.descuento) || 0));
+    const precio = Number(juego.precio);
+    const precioOriginal = descuento > 0 ? Math.round(precio / (1 - descuento / 100)) : precio;
+
     return Object.assign({}, juego, {
-      precioTexto: "$" + Number(juego.precio).toLocaleString("es-MX", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      }) + " MXN",
+      descuento: descuento,
+      tieneDescuento: descuento > 0,
+      descuentoTexto: "-" + descuento + "%",
+      precioTexto: formatearPrecio(precio),
+      precioOriginalTexto: formatearPrecio(precioOriginal),
+      plataformaCorta: String(juego.plataforma || "").split(",")[0].trim(),
       imagenRespaldo: respaldo(juego.titulo)
     });
   }
