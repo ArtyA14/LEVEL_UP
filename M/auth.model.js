@@ -14,7 +14,7 @@
 //
 // La sesión persiste sola al recargar: Firebase Auth guarda la sesión
 // en el navegador (persistencia local), no hay que guardar nada en
-// localStorage a mano.
+// localStorage a mano
 
 import { auth } from "./firebase-config.js";
 import {
