@@ -1,6 +1,6 @@
 /* MV — Arranque de cada pagina.
    Lee data-page del body, inyecta la barra de navegacion
-   y conecta el ViewModel de esa pagina con el HTML de #app. */
+   y conecta el ViewModel de esa pagina con el HTML de #app */
 
 document.addEventListener("DOMContentLoaded", async function () {
   const pagina = document.body.dataset.page || "inicio";
