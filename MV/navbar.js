@@ -9,15 +9,28 @@ class NavBarViewModel {
     this.sinSesion = computed(() => !this.usuario.get());
     this.nombreUsuario = computed(() => {
       const usuario = this.usuario.get();
-      return usuario ? usuario.nombre : "";
+      if (!usuario) {
+        return "";
+      }
+      return usuario.displayName || usuario.username || usuario.email || "";
+    });
+
+    this.hayAdmin = computed(() => {
+      const usuario = this.usuario.get();
+      return !!usuario && usuario.role === "admin";
     });
 
     this.claseInicio = computed(() => "nav-link" + (this.paginaActual === "inicio" ? " activo" : ""));
     this.claseCatalogo = computed(() => "nav-link" + (this.paginaActual === "catalogo" ? " activo" : ""));
+    this.claseAdmin = computed(() => "nav-link nav-link--admin" + (this.paginaActual === "admin" ? " activo" : ""));
   }
 
-  cerrarSesion() {
-    AuthRepository.cerrarSesion();
+  async cerrarSesion() {
+    try {
+      await AuthRepository.cerrarSesion();
+    } catch (error) {
+      console.error("No se pudo cerrar la sesión", error);
+    }
     this.usuario.set(null);
     window.location.href = "index.html";
   }
@@ -30,6 +43,7 @@ function crearPlantillaNavbar() {
       '<div class="nav-enlaces">' +
         '<a data-bind="class: claseInicio" href="index.html">Inicio</a>' +
         '<a data-bind="class: claseCatalogo" href="catalogo.html">Catalogo</a>' +
+        '<a data-bind="show: hayAdmin, class: claseAdmin" href="admin.html">Admin</a>' +
       '</div>' +
       '<div class="nav-cuenta">' +
         '<div class="nav-grupo" data-bind="show: sinSesion">' +

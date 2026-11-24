@@ -13,8 +13,12 @@
    Requisitos en tu proyecto:
    - M/firebase-config.js : el archivo completo, con `export const db`
    - M/games.model.js     : el modelo de Firestore
+   - M/offers.model.js    : el modelo de ofertas (nuevo, cópialo también)
    - Este archivo reemplaza a tu MV/catalogo.js actual.
    - No hay que cambiar V/catalogo.html.
+   Con ofertas, el destacado vuelve a ser el de mayor descuento
+   (The Witcher 3, -50%), y cada tarjeta muestra su precio original
+   tachado y su descuento.
 */
 
 function formatearPrecioCatalogo(valor) {
@@ -31,27 +35,28 @@ function respaldoCatalogo(texto) {
 /* Firestore (ingles) -> tu modelo (espanol).
    Firestore: title, coverUrl, platforms[], genres[], price...
    Tu vista:  titulo, imagen, plataforma, genero, precio, precioTexto...
-   Nota: los juegos de Firestore no traen descuento en el documento
-   (las ofertas van en la colección `offers`, aparte), así que
-   descuento queda en 0 por ahora. El destacado será el primer
-   juego, Hollow Knight. */
-function mapearJuegoFirestore(juego) {
-  const precio = Number(juego.price) || 0;
+   El descuento NO está en el juego, está en `offers`: si hay una
+   oferta activa para este juego, se usa su discountPercent y su
+   oldPrice como precio original. Sin oferta, descuento es 0. */
+function mapearJuegoFirestore(juego, oferta) {
+  const precio = oferta ? Number(oferta.newPrice) || Number(juego.price) || 0 : Number(juego.price) || 0;
+  const precioOriginal = oferta ? Number(oferta.oldPrice) || precio : precio;
+  const descuento = oferta ? Number(oferta.discountPercent) || 0 : 0;
   const plataformas = Array.isArray(juego.platforms) ? juego.platforms : ["PC"];
   const generos = Array.isArray(juego.genres) ? juego.genres : [];
   return {
     id: juego.id,
     titulo: juego.title,
     plataforma: plataformas.join(", "),
-    plataformaCorta: plataformas[0] || "PC",
+    plataformaCorta: plataformas.join(", "),
     genero: generos[0] || "",
     generos: generos,
     precio: precio,
-    descuento: 0,
-    tieneDescuento: false,
-    descuentoTexto: "-0%",
+    descuento: descuento,
+    tieneDescuento: descuento > 0,
+    descuentoTexto: "-" + descuento + "%",
     precioTexto: precio === 0 ? "Gratis" : formatearPrecioCatalogo(precio),
-    precioOriginalTexto: formatearPrecioCatalogo(precio),
+    precioOriginalTexto: formatearPrecioCatalogo(precioOriginal),
     imagen: juego.coverUrl || "",
     imagenRespaldo: respaldoCatalogo(juego.title || "LEVEL_UP"),
     descripcion: juego.description || juego.shortDescription || "",
@@ -93,12 +98,22 @@ class CatalogoViewModel {
 
   async cargarDesdeFirestore() {
     try {
-      const modulo = await import("../M/games.model.js");
-      const juegos = await modulo.getGames({ max: 20 });
+      const juegosMod = await import("../M/games.model.js");
+      const ofertasMod = await import("../M/offers.model.js");
+      const juegos = await juegosMod.getGames({ max: 20 });
       if (!juegos || juegos.length === 0) {
         return; // se quedan los locales
       }
-      this.todos.set(juegos.map(mapearJuegoFirestore));
+      // Ofertas activas (ya filtradas por fecha en getActiveOffers).
+      // Si falla, se sigue sin ofertas, con descuento 0.
+      let ofertasPorJuego = {};
+      try {
+        const ofertas = await ofertasMod.getActiveOffers(20);
+        ofertas.forEach((o) => { ofertasPorJuego[o.gameId] = o; });
+      } catch (e) {
+        console.warn("No se pudieron cargar las ofertas, se muestran sin descuento", e);
+      }
+      this.todos.set(juegos.map((j) => mapearJuegoFirestore(j, ofertasPorJuego[j.id])));
     } catch (error) {
       console.error("No se pudo cargar el catálogo desde Firestore, se queda el catálogo local", error);
     }

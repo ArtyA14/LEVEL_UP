@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEVEL_UP — Personaliza tu tienda</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body data-page="onboarding">
+  <header id="navbar"></header>
+
+  <main id="app" class="centrado">
+    <section class="tarjeta-form">
+      <p class="onboarding-paso">Paso 2 de 2</p>
+      <h1 class="titulo-form">Personaliza tu tienda</h1>
+      <p class="texto-form">Elige tus géneros favoritos para recomendarte juegos. Puedes cambiarlo cuando quieras en Mi cuenta.</p>
+
+      <div class="filtros-rapidos chips-form" data-bind="each: chips" role="group" aria-label="Géneros favoritos">
+        <button class="filtro-chip" type="button" data-bind="text: etiqueta, class: clase, click: alternar"></button>
+      </div>
+
+      <p class="texto-form onboarding-resumen" data-bind="text: resumen"></p>
+
+      <p class="error" data-bind="show: hayError, text: error"></p>
+
+      <div class="acciones">
+        <button class="boton boton-primario" type="button" data-bind="click: guardar, disabled: cargando, text: textoGuardar"></button>
+        <button class="boton boton-suave" type="button" data-bind="click: omitir">Omitir por ahora</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>© 2026 LEVEL_UP — Proyecto académico de tienda de videojuegos.</p>
+  </footer>
+
+  <script src="../M/modelo.js"></script>
+  <script src="../MV/motor.js"></script>
+  <script src="../MV/navbar.js"></script>
+  <script src="../MV/auth-bridge.js"></script>
+  <script src="../MV/onboarding.js"></script>
+  <script src="../MV/app.js"></script>
+</body>
+</html>

@@ -16,20 +16,83 @@
       <p class="texto-form" data-bind="text: email"></p>
       <p class="texto-form">Juegos disponibles en la tienda: <strong data-bind="text: totalJuegos"></strong></p>
 
+      <dl class="perfil-datos">
+        <div class="perfil-dato">
+          <dt>País</dt>
+          <dd data-bind="text: paisTexto"></dd>
+        </div>
+        <div class="perfil-dato">
+          <dt>Edad</dt>
+          <dd data-bind="text: edadTexto"></dd>
+        </div>
+        <div class="perfil-dato perfil-dato--ancho">
+          <dt>Géneros favoritos</dt>
+          <dd data-bind="text: generosTexto"></dd>
+        </div>
+      </dl>
+
       <div class="acciones">
-        <a class="boton boton-primario" href="catalogo.html">Ir al catalogo</a>
-        <button class="boton boton-suave" data-bind="click: cerrarSesion">Cerrar sesion</button>
+        <a class="boton boton-primario" href="catalogo.html">Ir al catálogo</a>
+        <button class="boton boton-suave" type="button" data-bind="click: abrirEdicion">Editar preferencias</button>
+        <button class="boton boton-fantasma" type="button" data-bind="click: cerrarSesion">Cerrar sesión</button>
       </div>
+
+      <form class="perfil-edicion" data-bind="show: editando, submit: guardar">
+        <h2 class="perfil-edicion__titulo">Editar preferencias</h2>
+
+        <label class="campo-grupo">
+          <span>País</span>
+          <select class="campo" data-bind="value: paisEdicion">
+            <option value="">Selecciona tu país</option>
+            <option value="México">México</option>
+            <option value="Argentina">Argentina</option>
+            <option value="Bolivia">Bolivia</option>
+            <option value="Chile">Chile</option>
+            <option value="Colombia">Colombia</option>
+            <option value="Costa Rica">Costa Rica</option>
+            <option value="Cuba">Cuba</option>
+            <option value="Ecuador">Ecuador</option>
+            <option value="El Salvador">El Salvador</option>
+            <option value="España">España</option>
+            <option value="Estados Unidos">Estados Unidos</option>
+            <option value="Guatemala">Guatemala</option>
+            <option value="Honduras">Honduras</option>
+            <option value="Nicaragua">Nicaragua</option>
+            <option value="Panamá">Panamá</option>
+            <option value="Paraguay">Paraguay</option>
+            <option value="Perú">Perú</option>
+            <option value="República Dominicana">República Dominicana</option>
+            <option value="Uruguay">Uruguay</option>
+            <option value="Venezuela">Venezuela</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </label>
+
+        <div class="campo-grupo">
+          <span>Géneros favoritos</span>
+          <div class="filtros-rapidos chips-form" data-bind="each: chips" role="group" aria-label="Géneros favoritos">
+            <button class="filtro-chip" type="button" data-bind="text: etiqueta, class: clase, click: alternar"></button>
+          </div>
+        </div>
+
+        <p class="error" data-bind="show: hayError, text: error"></p>
+
+        <div class="acciones">
+          <button class="boton boton-primario" type="submit" data-bind="text: textoGuardar, disabled: guardando"></button>
+          <button class="boton boton-suave" type="button" data-bind="click: cancelar">Cancelar</button>
+        </div>
+      </form>
     </section>
   </main>
 
   <footer class="pie">
-    <p>(c) 2026 LEVEL_UP — Proyecto academico de tienda de videojuegos.</p>
+    <p>© 2026 LEVEL_UP — Proyecto académico de tienda de videojuegos.</p>
   </footer>
 
   <script src="../M/modelo.js"></script>
   <script src="../MV/motor.js"></script>
   <script src="../MV/navbar.js"></script>
+  <script src="../MV/auth-bridge.js"></script>
   <script src="../MV/cuenta.js"></script>
   <script src="../MV/app.js"></script>
 </body>

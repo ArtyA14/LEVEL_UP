@@ -186,7 +186,7 @@ function aplicarDirectivas(el, ambitos, d) {
     });
   }
 
-  ["href", "alt", "title", "placeholder"].forEach(function (atributo) {
+  ["href", "alt", "title", "placeholder", "type"].forEach(function (atributo) {
     const ruta = d[atributo];
     if (ruta === undefined) {
       return;
@@ -203,6 +203,16 @@ function aplicarDirectivas(el, ambitos, d) {
 
   if (d.disabled !== undefined) {
     efecto(function () { el.disabled = !!resolver(ambitos, d.disabled); });
+  }
+
+  if (d.checked !== undefined) {
+    efecto(function () { el.checked = !!resolver(ambitos, d.checked); });
+    el.addEventListener("change", function () {
+      const obs = resolverEscribible(ambitos, d.checked);
+      if (obs) {
+        obs.set(el.checked);
+      }
+    });
   }
 
   if (d.show !== undefined || d.visible !== undefined) {

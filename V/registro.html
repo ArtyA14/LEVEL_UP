@@ -14,38 +14,85 @@
       <h1 class="titulo-form" data-bind="text: titulo"></h1>
       <p class="texto-form">Crea tu cuenta para comprar y gestionar tu perfil.</p>
 
-      <label class="campo-grupo" data-bind="show: esRegistro">
+      <label class="campo-grupo">
         <span>Nombre</span>
-        <input class="campo" type="text" placeholder="Tu nombre" data-bind="value: nombre">
+        <input class="campo" type="text" placeholder="Tu nombre" autocomplete="name" data-bind="value: nombre">
       </label>
 
       <label class="campo-grupo">
         <span>Correo</span>
-        <input class="campo" type="email" placeholder="tu@correo.com" data-bind="value: email">
+        <input class="campo" type="email" placeholder="tu@correo.com" autocomplete="email" data-bind="value: email">
       </label>
 
       <label class="campo-grupo">
-        <span>Contrasena</span>
-        <input class="campo" type="password" placeholder="Minimo 6 caracteres" data-bind="value: password">
+        <span>Contraseña</span>
+        <div class="campo-password">
+          <input class="campo" type="password" placeholder="Mínimo 6 caracteres" autocomplete="new-password" data-bind="value: password, type: tipoPassword">
+          <button class="campo-ojo" type="button" data-bind="click: alternarPassword, text: textoOjo" aria-label="Mostrar u ocultar contraseña"></button>
+        </div>
+      </label>
+
+      <label class="campo-grupo">
+        <span>Confirmar contraseña</span>
+        <input class="campo" type="password" placeholder="Repite tu contraseña" autocomplete="new-password" data-bind="value: confirmarPassword">
+      </label>
+
+      <label class="campo-grupo">
+        <span>Fecha de nacimiento</span>
+        <input class="campo" type="date" data-bind="value: fechaNacimiento">
+        <small class="campo-ayuda">Debes tener al menos 13 años para registrarte.</small>
+      </label>
+
+      <label class="campo-grupo">
+        <span>País</span>
+        <select class="campo" data-bind="value: pais">
+          <option value="">Selecciona tu país</option>
+          <option value="México">México</option>
+          <option value="Argentina">Argentina</option>
+          <option value="Bolivia">Bolivia</option>
+          <option value="Chile">Chile</option>
+          <option value="Colombia">Colombia</option>
+          <option value="Costa Rica">Costa Rica</option>
+          <option value="Cuba">Cuba</option>
+          <option value="Ecuador">Ecuador</option>
+          <option value="El Salvador">El Salvador</option>
+          <option value="España">España</option>
+          <option value="Estados Unidos">Estados Unidos</option>
+          <option value="Guatemala">Guatemala</option>
+          <option value="Honduras">Honduras</option>
+          <option value="Nicaragua">Nicaragua</option>
+          <option value="Panamá">Panamá</option>
+          <option value="Paraguay">Paraguay</option>
+          <option value="Perú">Perú</option>
+          <option value="República Dominicana">República Dominicana</option>
+          <option value="Uruguay">Uruguay</option>
+          <option value="Venezuela">Venezuela</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </label>
+
+      <label class="campo-terminos">
+        <input type="checkbox" data-bind="checked: aceptaTerminos">
+        <span>Acepto los <a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a> y la <a href="privacidad.html" target="_blank" rel="noopener">Política de privacidad</a>.</span>
       </label>
 
       <p class="error" data-bind="show: hayError, text: error"></p>
 
-      <button class="boton boton-primario boton-ancho" type="submit" data-bind="text: textoBoton"></button>
+      <button class="boton boton-primario boton-ancho" type="submit" data-bind="text: textoBoton, disabled: cargando"></button>
 
-      <p class="texto-form pie-form" data-bind="show: esRegistro">Ya tienes cuenta? <a href="login.html">Inicia sesion</a></p>
-      <p class="texto-form pie-form" data-bind="show: sinRegistro">No tienes cuenta? <a href="registro.html">Registrate</a></p>
+      <p class="texto-form pie-form">¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
     </form>
   </main>
 
   <footer class="pie">
-    <p>(c) 2026 LEVEL_UP — Proyecto academico de tienda de videojuegos.</p>
+    <p>© 2026 LEVEL_UP — Proyecto académico de tienda de videojuegos.</p>
   </footer>
 
   <script src="../M/modelo.js"></script>
   <script src="../MV/motor.js"></script>
   <script src="../MV/navbar.js"></script>
-  <script src="../MV/auth.js"></script>
+  <script src="../MV/auth-bridge.js"></script>
+  <script src="../MV/registro.js"></script>
   <script src="../MV/app.js"></script>
 </body>
 </html>

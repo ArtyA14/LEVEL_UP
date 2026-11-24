@@ -33,6 +33,13 @@ export async function getGameById(id) {
   return { id: snap.id, ...snap.data() };
 }
 
+export async function getAllGamesAdmin() {
+  const snap = await getDocs(gamesRef);
+  const games = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  games.sort((a, b) => String(a.title || "").localeCompare(String(b.title || ""), "es"));
+  return games;
+}
+
 // Crear: solo admin (también hay que ponerlo en las Reglas de Firestore)
 export async function createGame(data) {
   const ref = await addDoc(gamesRef, {
@@ -41,7 +48,8 @@ export async function createGame(data) {
     ratingCount: 0,
     reviewCount: 0,
     ownersCount: 0,
-    isActive: true,
+    isFeatured: data.isFeatured === true,
+    isActive: data.isActive !== false,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp()
   });
@@ -56,4 +64,8 @@ export async function updateGame(id, data) {
 export async function deleteGame(id) {
   // Borrado lógico, para no perder reseñas y compras asociadas
   await updateDoc(doc(db, "games", id), { isActive: false, updatedAt: serverTimestamp() });
+}
+
+export async function reactivarGame(id) {
+  await updateDoc(doc(db, "games", id), { isActive: true, updatedAt: serverTimestamp() });
 }

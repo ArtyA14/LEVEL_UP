@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEVEL_UP — Administración</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body data-page="admin">
+  <header id="navbar"></header>
+
+  <main id="app">
+    <header class="admin-cabecera">
+      <p class="hero-kicker">Panel de administración</p>
+      <h1 class="titulo-pagina">Control total</h1>
+      <p class="subtitulo-pagina">Gestiona el catálogo, las ofertas, los usuarios y la comunidad de LEVEL_UP.</p>
+    </header>
+
+    <nav class="admin-pestanas" data-bind="each: pestanas" aria-label="Secciones del panel">
+      <button class="admin-pestana" type="button" data-bind="text: etiqueta, class: clase, click: click"></button>
+    </nav>
+
+    <p class="aviso" data-bind="show: hayMensaje, text: mensaje"></p>
+    <p class="error" data-bind="show: hayError, text: error"></p>
+
+    <section class="admin-seccion" data-bind="show: esDashboard">
+      <div class="admin-stats" data-bind="each: tarjetasStats">
+        <article class="admin-stat">
+          <p class="admin-stat__valor" data-bind="text: valor"></p>
+          <p class="admin-stat__etiqueta" data-bind="text: etiqueta"></p>
+        </article>
+      </div>
+
+      <div class="admin-bloque">
+        <div class="admin-bloque__cabecera">
+          <div>
+            <h2>Actividad diaria</h2>
+            <p class="admin-bloque__nota">Últimos 7 días registrados en stats.</p>
+          </div>
+          <button class="boton boton-fantasma" type="button" data-bind="click: cargarDashboard, disabled: cargandoStats">Recargar</button>
+        </div>
+
+        <p class="admin-vacio" data-bind="show: cargandoStats">Cargando métricas...</p>
+        <p class="admin-vacio" data-bind="show: sinDias">Sin datos todavía. Se llenarán cuando haya actividad registrada en stats.</p>
+
+        <div class="tabla-admin tabla-admin--diario">
+          <div class="tabla-admin__fila tabla-admin__fila--cabecera">
+            <span>Fecha</span>
+            <span>Usuarios</span>
+            <span>Compras</span>
+            <span>Ingresos</span>
+            <span>Reseñas</span>
+          </div>
+          <div data-bind="each: filasDiarias">
+            <div class="tabla-admin__fila">
+              <span class="tabla-admin__celda tabla-admin__celda--fuerte" data-etiqueta="Fecha" data-bind="text: fecha"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Usuarios" data-bind="text: nuevosUsuarios"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Compras" data-bind="text: compras"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Ingresos" data-bind="text: ingresos"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Reseñas" data-bind="text: resenas"></span>
+            </div>
+          </div>
+        </div>
+
+        <p class="admin-resumen" data-bind="show: hayResumen, text: resumenDiario"></p>
+      </div>
+    </section>
+
+    <section class="admin-seccion" data-bind="show: esJuegos">
+      <div class="admin-bloque">
+        <div class="admin-bloque__cabecera">
+          <div>
+            <h2>Juegos</h2>
+            <p class="admin-bloque__nota">Crea, edita, desactiva o reactiva los juegos del catálogo.</p>
+          </div>
+          <div class="acciones">
+            <button class="boton boton-primario" type="button" data-bind="click: nuevoJuego">Nuevo juego</button>
+            <button class="boton boton-fantasma" type="button" data-bind="click: cargarJuegos, disabled: cargandoJuegos">Recargar</button>
+          </div>
+        </div>
+
+        <form class="admin-form" data-bind="show: mostrandoFormJuego, submit: guardarJuego">
+          <div class="admin-form__cabecera">
+            <h3 data-bind="text: tituloFormJuego"></h3>
+            <button class="boton boton-fantasma" type="button" data-bind="click: cancelarJuego">Cancelar</button>
+          </div>
+
+          <div class="admin-form__grid">
+            <label class="campo-grupo">
+              <span>Título *</span>
+              <input class="campo" type="text" placeholder="Hollow Knight" data-bind="value: juegoTitulo">
+            </label>
+            <label class="campo-grupo">
+              <span>Slug *</span>
+              <input class="campo" type="text" placeholder="hollow-knight" data-bind="value: juegoSlug">
+            </label>
+            <label class="campo-grupo">
+              <span>Desarrollador *</span>
+              <input class="campo" type="text" placeholder="Team Cherry" data-bind="value: juegoDesarrollador">
+            </label>
+            <label class="campo-grupo">
+              <span>Distribuidor *</span>
+              <input class="campo" type="text" placeholder="Team Cherry" data-bind="value: juegoDistribuidor">
+            </label>
+            <label class="campo-grupo">
+              <span>Precio (MXN) *</span>
+              <input class="campo" type="number" min="0" step="0.01" placeholder="249" data-bind="value: juegoPrecio">
+            </label>
+            <label class="campo-grupo">
+              <span>Lanzamiento *</span>
+              <input class="campo" type="date" data-bind="value: juegoFecha">
+            </label>
+            <label class="campo-grupo">
+              <span>Géneros *</span>
+              <input class="campo" type="text" placeholder="Acción, Aventura" data-bind="value: juegoGeneros">
+            </label>
+            <label class="campo-grupo">
+              <span>Plataformas *</span>
+              <input class="campo" type="text" placeholder="PC, PlayStation 5" data-bind="value: juegoPlataformas">
+            </label>
+            <label class="campo-grupo">
+              <span>Etiquetas</span>
+              <input class="campo" type="text" placeholder="indie, 2D" data-bind="value: juegoEtiquetas">
+            </label>
+            <label class="campo-grupo">
+              <span>Portada (URL) *</span>
+              <input class="campo" type="url" placeholder="https://..." data-bind="value: juegoPortada">
+            </label>
+            <label class="campo-grupo campo-grupo--ancho">
+              <span>Descripción corta *</span>
+              <input class="campo" type="text" maxlength="200" placeholder="Metroidvania de acción y exploración." data-bind="value: juegoDescripcionCorta">
+            </label>
+            <label class="campo-grupo campo-grupo--ancho">
+              <span>Descripción *</span>
+              <textarea class="campo" rows="4" placeholder="Explora Hallownest..." data-bind="value: juegoDescripcion"></textarea>
+            </label>
+            <label class="campo-terminos campo-grupo--ancho">
+              <input type="checkbox" data-bind="checked: juegoDestacado">
+              <span>Destacado en el inicio</span>
+            </label>
+            <label class="campo-terminos campo-grupo--ancho">
+              <input type="checkbox" data-bind="checked: juegoActivo">
+              <span>Activo en la tienda</span>
+            </label>
+          </div>
+
+          <p class="error" data-bind="show: hayErrorJuego, text: errorJuego"></p>
+
+          <div class="acciones">
+            <button class="boton boton-primario" type="submit" data-bind="text: textoGuardarJuego, disabled: guardandoJuego"></button>
+          </div>
+        </form>
+
+        <p class="admin-vacio" data-bind="show: cargandoJuegos">Cargando juegos...</p>
+        <p class="admin-vacio" data-bind="show: sinJuegos">No hay juegos todavía. Crea el primero con el botón de arriba.</p>
+
+        <div class="tabla-admin tabla-admin--juegos">
+          <div class="tabla-admin__fila tabla-admin__fila--cabecera">
+            <span>Juego</span>
+            <span>Géneros</span>
+            <span>Precio</span>
+            <span>Estado</span>
+            <span>Acciones</span>
+          </div>
+          <div data-bind="each: filasJuegos">
+            <div class="tabla-admin__fila">
+              <span class="tabla-admin__celda tabla-admin__celda--fuerte" data-etiqueta="Juego" data-bind="text: titulo"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Géneros" data-bind="text: generos"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Precio" data-bind="text: precio"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Estado"><span data-bind="text: estado, class: claseEstado"></span></span>
+              <span class="tabla-admin__celda tabla-admin__acciones" data-etiqueta="Acciones">
+                <button class="boton boton-suave" type="button" data-bind="click: editar">Editar</button>
+                <button class="boton boton-fantasma" type="button" data-bind="click: alternar, text: textoAlternar"></button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-seccion" data-bind="show: esOfertas">
+      <div class="admin-bloque">
+        <div class="admin-bloque__cabecera">
+          <div>
+            <h2>Ofertas</h2>
+            <p class="admin-bloque__nota">Los descuentos se aplican al precio final del catálogo.</p>
+          </div>
+          <div class="acciones">
+            <button class="boton boton-primario" type="button" data-bind="click: nuevaOferta">Nueva oferta</button>
+            <button class="boton boton-fantasma" type="button" data-bind="click: cargarOfertas, disabled: cargandoOfertas">Recargar</button>
+          </div>
+        </div>
+
+        <form class="admin-form" data-bind="show: mostrandoFormOferta, submit: guardarOferta">
+          <div class="admin-form__cabecera">
+            <h3 data-bind="text: tituloFormOferta"></h3>
+            <button class="boton boton-fantasma" type="button" data-bind="click: cancelarOferta">Cancelar</button>
+          </div>
+
+          <div class="admin-form__grid">
+            <label class="campo-grupo campo-grupo--ancho">
+              <span>Juego *</span>
+              <select class="campo" data-bind="html: opcionesJuegosHtml, value: ofertaJuegoId"></select>
+            </label>
+            <label class="campo-grupo">
+              <span>Precio normal (MXN) *</span>
+              <input class="campo" type="number" min="0" step="0.01" data-bind="value: ofertaPrecioViejo">
+            </label>
+            <label class="campo-grupo">
+              <span>Precio con descuento (MXN) *</span>
+              <input class="campo" type="number" min="0" step="0.01" data-bind="value: ofertaPrecioNuevo">
+            </label>
+            <label class="campo-grupo">
+              <span>Inicio *</span>
+              <input class="campo" type="date" data-bind="value: ofertaInicio">
+            </label>
+            <label class="campo-grupo">
+              <span>Fin *</span>
+              <input class="campo" type="date" data-bind="value: ofertaFin">
+            </label>
+          </div>
+
+          <p class="error" data-bind="show: hayErrorOferta, text: errorOferta"></p>
+
+          <div class="acciones">
+            <button class="boton boton-primario" type="submit" data-bind="text: textoGuardarOferta, disabled: guardandoOferta"></button>
+          </div>
+        </form>
+
+        <p class="admin-vacio" data-bind="show: cargandoOfertas">Cargando ofertas...</p>
+        <p class="admin-vacio" data-bind="show: sinOfertas">No hay ofertas todavía. Crea la primera con el botón de arriba.</p>
+
+        <div class="tabla-admin tabla-admin--ofertas">
+          <div class="tabla-admin__fila tabla-admin__fila--cabecera">
+            <span>Juego</span>
+            <span>Precios</span>
+            <span>Descuento</span>
+            <span>Vigencia</span>
+            <span>Estado</span>
+            <span>Acciones</span>
+          </div>
+          <div data-bind="each: filasOfertas">
+            <div class="tabla-admin__fila">
+              <span class="tabla-admin__celda tabla-admin__celda--fuerte" data-etiqueta="Juego" data-bind="text: juego"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Precios" data-bind="text: precios"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Descuento" data-bind="text: descuento"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Vigencia" data-bind="text: vigencia"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Estado"><span data-bind="text: estado, class: claseEstado"></span></span>
+              <span class="tabla-admin__celda tabla-admin__acciones" data-etiqueta="Acciones">
+                <button class="boton boton-suave" type="button" data-bind="click: editar">Editar</button>
+                <button class="boton boton-fantasma" type="button" data-bind="click: alternar, text: textoAlternar"></button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-seccion" data-bind="show: esUsuarios">
+      <div class="admin-bloque">
+        <div class="admin-bloque__cabecera">
+          <div>
+            <h2>Usuarios</h2>
+            <p class="admin-bloque__nota">Cambia roles y administra el estado de las cuentas.</p>
+          </div>
+          <button class="boton boton-fantasma" type="button" data-bind="click: cargarUsuarios, disabled: cargandoUsuarios">Recargar</button>
+        </div>
+
+        <p class="admin-vacio" data-bind="show: cargandoUsuarios">Cargando usuarios...</p>
+        <p class="admin-vacio" data-bind="show: sinUsuarios">No hay usuarios registrados.</p>
+
+        <div class="tabla-admin tabla-admin--usuarios">
+          <div class="tabla-admin__fila tabla-admin__fila--cabecera">
+            <span>Usuario</span>
+            <span>Correo</span>
+            <span>Rol</span>
+            <span>Estado</span>
+            <span>Acciones</span>
+          </div>
+          <div data-bind="each: filasUsuarios">
+            <div class="tabla-admin__fila">
+              <span class="tabla-admin__celda tabla-admin__celda--fuerte" data-etiqueta="Usuario" data-bind="text: username"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Correo" data-bind="text: email"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Rol"><span data-bind="text: rol, class: claseRol"></span></span>
+              <span class="tabla-admin__celda" data-etiqueta="Estado"><span data-bind="text: estado, class: claseEstado"></span></span>
+              <span class="tabla-admin__celda tabla-admin__acciones" data-etiqueta="Acciones">
+                <button class="boton boton-suave" type="button" data-bind="click: cambiarRol, text: textoRol, disabled: esPropio"></button>
+                <button class="boton boton-fantasma" type="button" data-bind="click: alternarBan, text: textoBan, disabled: esPropio"></button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-seccion" data-bind="show: esPosts">
+      <div class="admin-bloque">
+        <div class="admin-bloque__cabecera">
+          <div>
+            <h2>Comunidad</h2>
+            <p class="admin-bloque__nota">Modera los posts de la comunidad. Las reseñas no se tocan desde aquí.</p>
+          </div>
+          <button class="boton boton-fantasma" type="button" data-bind="click: cargarPosts, disabled: cargandoPosts">Recargar</button>
+        </div>
+
+        <p class="admin-vacio" data-bind="show: cargandoPosts">Cargando posts...</p>
+        <p class="admin-vacio" data-bind="show: sinPosts">No hay posts en la comunidad.</p>
+
+        <div class="tabla-admin tabla-admin--posts">
+          <div class="tabla-admin__fila tabla-admin__fila--cabecera">
+            <span>Título</span>
+            <span>Autor</span>
+            <span>Tipo</span>
+            <span>Fecha</span>
+            <span>Acciones</span>
+          </div>
+          <div data-bind="each: filasPosts">
+            <div class="tabla-admin__fila">
+              <span class="tabla-admin__celda tabla-admin__celda--fuerte" data-etiqueta="Título" data-bind="text: titulo"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Autor" data-bind="text: autor"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Tipo" data-bind="text: tipo"></span>
+              <span class="tabla-admin__celda" data-etiqueta="Fecha" data-bind="text: fecha"></span>
+              <span class="tabla-admin__celda tabla-admin__acciones" data-etiqueta="Acciones">
+                <button class="boton boton-peligro" type="button" data-bind="click: borrar">Borrar</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>© 2026 LEVEL_UP — Proyecto académico de tienda de videojuegos.</p>
+  </footer>
+
+  <script src="../M/modelo.js"></script>
+  <script src="../MV/motor.js"></script>
+  <script src="../MV/navbar.js"></script>
+  <script src="../MV/auth-bridge.js"></script>
+  <script src="../MV/admin.js"></script>
+  <script src="../MV/app.js"></script>
+</body>
+</html>
